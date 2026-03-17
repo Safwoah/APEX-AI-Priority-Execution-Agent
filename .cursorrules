@@ -1,0 +1,49 @@
+# APEX — AI Priority Execution Agent
+# .cursorrules — Cursor AI configuration
+
+## Project Context
+This is APEX, an AI-native priority engine that takes product goals and outputs
+ranked, scored task lists with Cursor implementation plans.
+
+## Your Role in This Project
+You are a senior engineer pair-programming on APEX. You understand:
+- The APEX scoring formula: ((impact*0.45) + (alignment*0.30) + ((10-effort)*0.25)) * 1000
+- The goal: help developers answer "what should I build FIRST?" with data, not opinions
+- The output always includes a Cursor-ready implementation scaffold
+
+## Code Standards
+- Python 3.11+
+- Use the `anthropic` SDK (not openai)
+- All API calls use model: `claude-opus-4-5`
+- Never hardcode API keys — always use os.environ.get()
+- Type hints required on all functions
+- Docstrings required on all classes and public methods
+
+## When Adding New Features
+Always ask: "What is the APEX score of this feature?" before implementing.
+Follow the same priority logic the agent itself preaches.
+
+## File Structure
+- agent.py      → core pipeline (parse → score → plan)
+- scorer.py     → PriorityScorer class and methodology
+- benchmark.py  → APEX vs default Claude comparison
+- main.py       → CLI entrypoint
+- examples/     → sample inputs and outputs
+- tests/        → unit tests for scorer
+
+## Testing
+Run tests with: python -m pytest tests/
+Run demo with: python main.py --demo
+Run benchmark: python main.py --benchmark --demo
+
+## Key Design Decisions
+1. Scoring is deterministic (formula-based), not LLM-based — reproducible results
+2. LLM is used for UNDERSTANDING the goal, not for RANKING (humans game LLM rankings)
+3. Dependency penalty is 25% — blocked tasks drop but don't disappear
+4. Cursor scaffold is always ONE specific file/function — forces clarity
+
+## Never Do
+- Never let the LLM assign scores directly (it will inflate everything)
+- Never skip the dependency check
+- Never output more than 10 tasks (forces real prioritization)
+- Never remove the methodology from output (transparency is the product)
