@@ -1,0 +1,9 @@
+{
+  "goal": "Build a crypto portfolio tracker with: Binance API sync, real-time price alerts, portfolio charts, user auth, and social sharing of performance",
+  "expected_output": {
+    "goal_summary": "A crypto portfolio tracker connecting to Binance with alerts, visualization, and social features",
+    "top_priority": "Binance API sync",
+    "reasoning": "Everything else depends on live data. No sync = no product."
+  },
+  "notes": "This is the built-in demo. Run with: python main.py --demo"
+}
