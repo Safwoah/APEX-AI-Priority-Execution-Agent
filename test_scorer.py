@@ -42,9 +42,9 @@ def test_min_score():
 
 def test_dependency_penalty():
     """Dependency should reduce score by 25%."""
-    task_free = make_task("Free", impact=8, effort=4, alignment=8, has_deps=False)
+    task_free    = make_task("Free",    impact=8, effort=4, alignment=8, has_deps=False)
     task_blocked = make_task("Blocked", impact=8, effort=4, alignment=8, has_deps=True)
-    score_free = scorer.score(task_free)
+    score_free    = scorer.score(task_free)
     score_blocked = scorer.score(task_blocked)
     assert score_blocked == round(score_free * 0.75), \
         f"Penalty not applied: {score_free} vs {score_blocked}"
@@ -65,7 +65,7 @@ def test_impact_dominates():
 
 
 def test_score_range():
-    """All scores should be between 0 and 10,000."""
+    """All scores should be between 0 and 9,750 (the true maximum)."""
     import random
     for _ in range(100):
         task = make_task(
@@ -76,7 +76,7 @@ def test_score_range():
             has_deps=random.choice([True, False])
         )
         score = scorer.score(task)
-        assert 0 <= score <= 10_000, f"Score out of range: {score}"
+        assert 0 <= score <= 9_750, f"Score out of range: {score}"
 
 
 def test_methodology_returned():
